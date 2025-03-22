@@ -1,0 +1,12 @@
+type TokenResponse {
+  token: String!
+}
+
+type Mutation {
+  previousRegisterData(email: String!, nickName: String!): TokenResponse!
+  completeRegisterData(password:String!): TokenResponse!
+}
+
+type Query {
+  _empty: String
+}

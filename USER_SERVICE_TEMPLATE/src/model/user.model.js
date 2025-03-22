@@ -1,59 +1,52 @@
-const { type } = require("os");
-const {sequelize} = require("../config/mysql.connection");
-const {DataTypes} = require("sequelize");
-const { error } = require("console");
+const { sequelize } = require("../config/mysql.connection");
+const { Sequelize, DataTypes } = require('sequelize');
 
-const user = sequelize.define("user",{
-    id:{
-        type:DataTypes.INTEGER,
-        primaryKey:true,
-        allowNull:false,
-    },
-    name:{
-        type:DataTypes.STRING(250),
-        allowNull:false
-    },
-    lastName:{
-        type:DataTypes.STRING(250),
+const User = sequelize.define("user", {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
         allowNull: false,
+        autoIncrement: true,
     },
-    profileImage:{
-        type:DataTypes.BLOB,
-        allowNull:true,
+    email: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        unique: true,
     },
     nickName:{
-        type:DataTypes.STRING(25),
+        type: DataTypes.STRING(25),
         allowNull:false,
         unique:true,
     },
-    email:{
-        type:DataTypes.STRING(50),
-        allowNull:false,
-        unique:true,
+    password: {
+        type: DataTypes.STRING(60),
+        allowNull: false,
     },
-    password:{
-        type:DataTypes.STRING(12),
-        allowNull:false,
+    profileImage: {
+        type: DataTypes.BLOB,
+        allowNull: true,
     },
-    statusRegistration:{
+    statusRegistration: {
         type: DataTypes.BOOLEAN,
-        allowNull:false,
+        allowNull: false,
+        defaultValue:false,
     },
-    isStudient:{
-        type:DataTypes.BOOLEAN,
-        allowNull:false,
+    isStudent: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue:false,
     }
-
-},{
-    tableName:"user",
+}, {
+    tableName: "user",
+    timestamps: false  
 });
 
-sequelize.sync({alter:true})
-.then(()=>{
-    console.log("tables synchronized sucessfully.");
+sequelize.sync()
+.then(() =>{
+    console.log("table synchronized successfully.");
 })
-.catch(error, ()=>{
-    console.error("tables can't be synchronized",error)
-})
+.catch((error) => {
+    console.error('table not synchronized.', error);
+  });
 
-module.exports = user;
+module.exports = User;

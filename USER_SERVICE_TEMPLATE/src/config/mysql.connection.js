@@ -1,4 +1,4 @@
-const {Sequelize} = require("sequelize");
+const { Sequelize } = require("sequelize");
 require("dotenv").config();
 
 const sequelize = new Sequelize(
@@ -7,21 +7,21 @@ const sequelize = new Sequelize(
     process.env.DATA_BASE_PASSWORD,
     {
         host: process.env.HOST,
-        dialect:"mysql",
-        logging:false,
+        dialect: "mysql",
+        logging: false,
     }
 );
 
-const connection = async () =>{
-    try{
+const connection = async () => {
+    try {
         await sequelize.authenticate();
-        console.log("succesfully connected by sql");
-    }catch(error){
-        console.error("error not connected by mysql",error);
+        console.log("Successfully connected to MySQL.");
+    } catch (error) {
+        console.error("Error: Not connected to MySQL", error);
     }
-}
+};
 
 module.exports = {
     connection,
     sequelize
-}
+};

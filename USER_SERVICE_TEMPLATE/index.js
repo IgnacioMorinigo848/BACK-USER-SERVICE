@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const {connection} = require("./src/config/mysql.connection");
 const graphQlRouter = require("./src/router/graphQlRouter");
+require("./src/model/user.model");
 
 const app = express();
 
